@@ -10,7 +10,8 @@ const Home = () => {
     // Get the current user
     const {user} = UserAuth();
 
-    // Make a useState to keep track of the userIngredients
+    // Make a useState to keep track of the userIngredients false at first to prevent unnecessary
+    // changes to Firestore or local storage
     const [userIngredients, setUserIngredients] = useState(false);
 
     // Make a useState to store the docID of the userIngredients doc for the specific user
@@ -33,7 +34,6 @@ const Home = () => {
         const userIngredientsRef = collection(db, "userIngredients");
         const getUserIngredients = async () => {
             if (user?.uid) {
-                console.log("logged in user found");
                 // Get the document for the current user
                 const q = query(userIngredientsRef, where("userID", "==", user.uid), limit(1));
                 const data = await getDocs(q);
@@ -48,11 +48,12 @@ const Home = () => {
                     createUserIngredients();
                     setUserIngredients([]);
                 }
+            // If there's no logged in user then local storage should be used instead of Firestore
             } else {
-                console.log("No logged in user");
+                // Set userIngredients to be equal to whatever's in local storage
                 if (localStorage.getItem("userIngredients") !== null) {
-                    console.log("user ingredients found in local storage: ", localStorage.getItem("userIngredients"));
                     setUserIngredients(JSON.parse(localStorage.getItem("userIngredients")));
+                // Otherwise userIngredients should be an empty array
                 } else {
                     setUserIngredients([]);
                 }
@@ -76,17 +77,15 @@ const Home = () => {
             await updateDoc(docRef, newFields);
         }
 
+        // If the userIngredients state is false then there's no need to update the database or local storage
         if (userIngredients !== false) {
             // Only call this if there is an existing docID and logged in user
             if (docID && user) {
-                console.log("Using Firestore because we have a user");
                 updateUserIngredients();
             } else {
-                console.log("SETTING STUFF IN LOCAL STORAGE: ", userIngredients);
                 localStorage.setItem("userIngredients", JSON.stringify(userIngredients));
             }
         }
-        
         
     },[userIngredients, docID]);
 
