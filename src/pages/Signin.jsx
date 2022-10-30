@@ -66,8 +66,9 @@ const Signin = () => {
                     </div>
                     {/* Account requirement message */}
                     <div className="text-darkColour text-xl text-left font-cormorant mt-2">
-                        <p>An account is needed so we can remember what ingredients you've got, there's no need to create an account specifically for YourBarCart
-                             - just log in with either your Google or Facebook account!</p>
+                        <p>An account isn't required to use YourBarCart, but in the future it will allow us to give you better
+                            recommendations and improve your general experience.
+                        </p>
                     </div>
                 </div>
                 {/* Image */}

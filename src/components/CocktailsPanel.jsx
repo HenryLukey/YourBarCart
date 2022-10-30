@@ -34,7 +34,9 @@ const CocktailsPanel = ({ userIngredients }) => {
             });
             setPossibleCocktails(tempCocktailsArray);
         }
-        getPossibleCocktails();
+        if (userIngredients !== false) {
+            getPossibleCocktails();
+        }
     },[userIngredients]);
 
     return (

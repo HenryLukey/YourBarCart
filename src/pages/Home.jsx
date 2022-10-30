@@ -11,7 +11,8 @@ const Home = () => {
     const {user} = UserAuth();
 
     // Make a useState to keep track of the userIngredients
-    const [userIngredients, setUserIngredients] = useState([]);
+    const [userIngredients, setUserIngredients] = useState(false);
+
     // Make a useState to store the docID of the userIngredients doc for the specific user
     const [docID, setDocID] = useState("");
 
@@ -31,7 +32,8 @@ const Home = () => {
         // Get a reference to the collection
         const userIngredientsRef = collection(db, "userIngredients");
         const getUserIngredients = async () => {
-            if (user.uid){
+            if (user?.uid) {
+                console.log("logged in user found");
                 // Get the document for the current user
                 const q = query(userIngredientsRef, where("userID", "==", user.uid), limit(1));
                 const data = await getDocs(q);
@@ -46,7 +48,15 @@ const Home = () => {
                     createUserIngredients();
                     setUserIngredients([]);
                 }
-            }   
+            } else {
+                console.log("No logged in user");
+                if (localStorage.getItem("userIngredients") !== null) {
+                    console.log("user ingredients found in local storage: ", localStorage.getItem("userIngredients"));
+                    setUserIngredients(JSON.parse(localStorage.getItem("userIngredients")));
+                } else {
+                    setUserIngredients([]);
+                }
+            }  
         };
 
         // Create a userIngredients doc for the current user. Will only ever be called once per user
@@ -65,10 +75,18 @@ const Home = () => {
             const newFields = {ingredients: userIngredients};
             await updateDoc(docRef, newFields);
         }
-        // Only call this if there is an existing docID
-        if (docID) {
-            updateUserIngredients();
+
+        if (userIngredients !== false) {
+            // Only call this if there is an existing docID and logged in user
+            if (docID && user) {
+                console.log("Using Firestore because we have a user");
+                updateUserIngredients();
+            } else {
+                console.log("SETTING STUFF IN LOCAL STORAGE: ", userIngredients);
+                localStorage.setItem("userIngredients", JSON.stringify(userIngredients));
+            }
         }
+        
         
     },[userIngredients, docID]);
 

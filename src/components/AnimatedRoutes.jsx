@@ -24,8 +24,8 @@ const AnimatedRoutes = () => {
                 <Routes location={location} key={location.pathname}>
                     {/* All routes except signin are protected */}
                     <Route path="/signin" element={<Signin />} />
-                    <Route path="/" element={<Protected><Home /></Protected>} />
-                    <Route path="/cocktailPage" element={<Protected><CocktailPage /></Protected>} />
+                    <Route path="/" element={<Home />} />
+                    <Route path="/cocktailPage" element={<CocktailPage />} />
                 </Routes>
             </AnimatePresence>
         </AuthContextProvider>
