@@ -29,6 +29,12 @@
         hover:rounded-xl transition-all duration-100 ease-linear
         cursor-pointer border border-darkColour;
     }
+    .hover-rounded-xl {
+        @apply hover:rounded-xl transition-all duration-200 ease-linear;
+    }
+    .hover-rounded-lg {
+        @apply hover:rounded-lg transition-all duration-200 ease-linear;
+    }
 }
 
 @layer utilities {

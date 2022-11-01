@@ -60,7 +60,7 @@ const SearchBar = ({ searchPopulation, onSearch, showAllByDefault }) => {
 
     return (
         // The component itself is just a simple input
-        <input type="text" onChange={event => {setSearchTerm(event.target.value)}} placeholder="Search..." className="justify-center w-full p-2 focus:rounded-xl bg-lightColour border hover:rounded-xl border-darkColour font-roboto transition-all duration-200 ease-linear"/>
+        <input type="text" onChange={event => {setSearchTerm(event.target.value)}} placeholder="Search..." className="justify-center w-full p-2 focus:rounded-xl bg-lightColour border border-darkColour font-roboto hover-rounded-xl"/>
     );
 }
 

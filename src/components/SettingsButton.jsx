@@ -41,9 +41,9 @@ const SettingsButton = ({ icon }) => {
             {/* If open is true then render the dropdown */}
             {open ? (
                 // The dropdown is contained in an unordered list
-                <ul className="absolute right-0 z-30 w-48 origin-top-right bg-lightColour border border-darkColour hover:rounded-xl transition-all duration-200 ease-linear text-darkColour text-xl font-cormorant mt-2">
+                <ul className="absolute right-0 z-30 w-48 origin-top-right bg-lightColour border border-darkColour hover-rounded-xl text-darkColour text-xl font-cormorant mt-2">
                     {/* Call handleSignOut if someone clicks the signout button */}
-                    <li onClick={handleClick} className="mx-2 my-3 border border-darkColour hover:rounded-lg transition-all duration-200 ease-linear select-none bg-primary hover:bg-primaryVariant">
+                    <li onClick={handleClick} className="mx-2 my-3 border border-darkColour hover-rounded-lg select-none bg-primary hover:bg-primaryVariant">
                         {user?.uid ? <div>Sign out</div> : <div>Sign in</div>}
                     </li>
                     {/* Dark mode toggle */}
