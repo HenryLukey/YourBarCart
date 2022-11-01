@@ -30,7 +30,7 @@ const CocktailPreview = ({ cocktail }) => {
 
     return (
         // Container div for the preview card
-        <div className="bg-lightColour ml-2 mt-2 overflow-hidden border hover:rounded-xl transition-all duration-200 ease-linear border-darkColour hover:bg-gray-100" onClick={() => navigateToCocktail()}>
+        <div className="bg-lightColour hover:bg-lightVariant ml-2 mt-2 overflow-hidden border hover:rounded-xl transition-all duration-200 ease-linear border-darkColour" onClick={() => navigateToCocktail()}>
             {/* Cocktail name */}
             <h2 className="font-bold p-2 border-b border-darkColour text-left">{cocktail.name}</h2>
             {/* Cocktail image */}

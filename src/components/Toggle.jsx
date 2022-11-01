@@ -25,7 +25,7 @@ const Toggle = ({ initialState, value, onToggle }) => {
 
     return (
         // A div which will have it's className change depending on state to handle colour changes
-        <div className={`m-2 border hover:rounded-lg transition-all duration-200 ease-linear text-left px-1 p-1 border-darkColour select-none ${state ? "bg-primary hover:bg-primaryVariant" : "bg-lightColour hover:bg-gray-300"}`} onClick={toggle}>{value}</div>
+        <div className={`m-2 border hover:rounded-lg transition-all duration-200 ease-linear text-left px-1 p-1 border-darkColour select-none ${state ? "bg-primary hover:bg-primaryVariant" : "bg-lightColour hover:bg-lightVariant"}`} onClick={toggle}>{value}</div>
     );
 }
 
