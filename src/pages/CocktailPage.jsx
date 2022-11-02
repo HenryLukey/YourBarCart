@@ -14,10 +14,31 @@ const CocktailPage = ({}) => {
     const {cocktailObj} = state;
     // Make a useState to handle the URL of the cocktails image
     const [url, setUrl] = useState();
+    // Tracks the units the user wants to see the ingredients in
+    const [usingOz, setUsingOz] = useState(true);
 
     // Navigate to home screen
     const returnToHome = () => {
         navigate("/");
+    }
+
+    const handleUnits = (ingredientUnit) => {
+        if (ingredientUnit === "oz") {
+            if (!usingOz) {
+                return "ml";
+            }
+        }
+        return ingredientUnit;
+    }
+
+    const handleQuantities = (ingredientObj) => {
+        if (ingredientObj.units === "oz") {
+            if (!usingOz) {
+                const ml = ingredientObj.quantity * 30;
+                return ml.toString();
+            }
+        }
+        return ingredientObj.quantity;
     }
 
     // Called if the cocktail object changes
@@ -53,17 +74,27 @@ const CocktailPage = ({}) => {
                     <img className="lg:w-160 w-full lg:m-4" src={url}/>
                     {/* Div containing ingredients and steps */}
                     <div className="lg:w-160 w-full lg:m-4">
-                        {/* Ingredients */}
+                        {/* Ingredients section */}
                         <div>
-                        <h2 className="text-xl font-black font-roboto my-4">Ingredients:</h2>
+                            {/* Title and unit conversion buttons */}
+                            <div className="flex flex-row">
+                                {/* Title */}
+                                <h2 className="text-xl font-black font-roboto my-4 text-left ml-2">Ingredients:</h2>
+                                {/* Unit conversion buttons */}
+                                <div className="flex-1"></div>
+                                <div>
+                                    <button onClick={() => setUsingOz(true)} className={`text-darkColour text-xl font-cormorant border-t border-b border-l border-darkColour ml-2 my-2 py-2 px-4 ${usingOz ? "bg-primary hover:bg-primaryVariant" : "bg-lightColour hover:bg-lightVariant"}`}>oz</button>
+                                    <button onClick={() => setUsingOz(false)} className={`text-darkColour text-xl font-cormorant border border-darkColour mr-2 my-2 py-2 px-4 ${usingOz ? "bg-lightColour hover:bg-lightVariant" : "bg-primary hover:bg-primaryVariant"}`}>ml</button>
+                                </div> 
+                            </div>
                             <ul>
                                 {/* For each ingredient add a row to the list containing the name, quantity and units */}
                                 {cocktailObj.ingredients.map((ingredient, index) => {
                                     return(
                                         // Use grid with 3 columns so there is consistent spacing
                                         <li className="border-t flex-wrap font-cormorant text-xl p-2 px-8 border-gray-400 grid grid-cols-3" key={index}>
-                                            <div className="">{ingredient.quantity}</div>
-                                            <div className="">{ingredient.units}</div>
+                                            <div className="">{handleQuantities(ingredient)}</div>
+                                            <div className="">{handleUnits(ingredient.units)}</div>
                                             <div className="">{ingredient.name}</div>
                                         </li>
                                     );
