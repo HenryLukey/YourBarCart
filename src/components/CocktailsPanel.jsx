@@ -24,11 +24,19 @@ const CocktailsPanel = ({ userIngredients }) => {
                 const tempIngredientArray = [];
                 
                 cocktail.ingredients.forEach(ingredient => {
-                    tempIngredientArray.push(ingredient.name);
+                    // If the ingredient contains an "or" then split it to get the potential ingredients in an array
+                    if (ingredient.name.includes(" or ")) {
+                        const splitResult = ingredient.name.split(" or ");
+                        tempIngredientArray.push(splitResult);
+                    // Otherwise just return the name within its own array
+                    } else {
+                        tempIngredientArray.push([ingredient.name]);
+                    }
+                    
                 });
 
                 // Check if the userIngredients array contains every ingredient in the current cocktail
-                if (tempIngredientArray.every(val => userIngredients.includes(val))) {
+                if (tempIngredientArray.every(val => val.some(el => userIngredients.includes(el)))) {
                     tempCocktailsArray.push(cocktail);
                 }
             });
