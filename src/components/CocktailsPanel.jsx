@@ -36,7 +36,7 @@ const CocktailsPanel = ({ userIngredients }) => {
                 });
 
                 // Check if the userIngredients array contains every ingredient in the current cocktail
-                if (tempIngredientArray.every(val => val.some(el => userIngredients.includes(el)))) {
+                if (tempIngredientArray.every(val => val.some(el => userIngredients.includes(el) || el.includes("(optional)")))) {
                     tempCocktailsArray.push(cocktail);
                 }
             });
