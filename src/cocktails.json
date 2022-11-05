@@ -985,5 +985,154 @@
     ],
     "name": "French 75",
     "imageAddress": "french-75.jpg"
+  },
+  {
+    "ingredients": [
+      {
+      "name": "Gin",
+      "quantity": "2",
+      "units": "oz"
+      },
+      {
+      "name": "Lemon juice",
+      "quantity": "1",
+      "units": "oz"
+      },
+      {
+      "name": "Simple syrup",
+      "quantity": "0.5",
+      "units": "oz"
+      },
+      {
+      "name": "Egg white (optional)",
+      "quantity": "1",
+      "units": ""
+      }
+    ],  
+    "steps": [
+      "Combine all ingredients in a cocktail shaker and dry shake",
+      "Add ice to the shaker and shake again",
+      "Strain into a coupe glass",
+      "Garnish with a lemon twist or 3 drops of angostura bitters"
+    ],
+    "name": "Gin Sour",
+    "imageAddress": "gin-sour.jpg"
+  },
+  {
+    "ingredients": [
+      {
+      "name": "Reposado tequila",
+      "quantity": "2",
+      "units": "oz"
+      },
+      {
+      "name": "Lime juice",
+      "quantity": "0.25",
+      "units": "oz"
+      },
+      {
+      "name": "Simple syrup",
+      "quantity": "0.25",
+      "units": "oz"
+      },
+      {
+      "name": "Ginger beer",
+      "quantity": "3",
+      "units": "oz"
+      }
+    ],  
+    "steps": [
+      "Combine all ingredients except ginger beer in a copper mug or collins glass with ice and stir",
+      "Top with ginger beer"
+    ],
+    "name": "Mexican Mule",
+    "imageAddress": "mexican-mule.jpg"
+  },
+  {
+    "ingredients": [
+      {
+      "name": "Vodka",
+      "quantity": "2",
+      "units": "oz"
+      },
+      {
+      "name": "Lime juice",
+      "quantity": "0.5",
+      "units": "oz"
+      },
+      {
+      "name": "Ginger beer",
+      "quantity": "3",
+      "units": "oz"
+      }
+    ],  
+    "steps": [
+      "Combine all ingredients except ginger beer in a copper mug or collins glass with ice and stir",
+      "Top with ginger beer"
+    ],
+    "name": "Moscow Mule",
+    "imageAddress": "moscow-mule.jpg"
+  },
+  {
+    "ingredients": [
+      {
+      "name": "Blanco tequila",
+      "quantity": "2",
+      "units": "oz"
+      },
+      {
+      "name": "Grenadine",
+      "quantity": "0.25",
+      "units": "oz"
+      },
+      {
+      "name": "Orange juice",
+      "quantity": "4",
+      "units": "oz"
+      }
+    ],  
+    "steps": [
+      "Pour tequila and orange juice into a collins glass filled with ice",
+      "Add the grenadine which will sink to the bottom of the glass",
+      "Garnish with a slice of orange"
+    ],
+    "name": "Tequila Sunrise",
+    "imageAddress": "tequila-sunrise.jpg"
+  },
+  {
+    "ingredients": [
+      {
+      "name": "Vodka",
+      "quantity": "1.5",
+      "units": "oz"
+      },
+      {
+      "name": "Peach schnapps",
+      "quantity": "0.5",
+      "units": "oz"
+      },
+      {
+      "name": "Raspberry liqueur (optional)",
+      "quantity": "0.5",
+      "units": "oz"
+      },
+      {
+      "name": "Orange juice",
+      "quantity": "1.5",
+      "units": "oz"
+      },
+      {
+      "name": "Cranberry juice",
+      "quantity": "1.5",
+      "units": "oz"
+      }
+    ],  
+    "steps": [
+      "Combine all ingredients and ice in a cocktail shaker and shake",
+      "Strain into a collins glass over fresh ice",
+      "Garnish with a slice of orange or cocktail umbrella"
+    ],
+    "name": "Sex on the Beach",
+    "imageAddress": "sex-on-the-beach.jpg"
   }
 ]
