@@ -1134,5 +1134,172 @@
     ],
     "name": "Sex on the Beach",
     "imageAddress": "sex-on-the-beach.jpg"
+  },
+  {
+    "ingredients": [
+      {
+      "name": "Gin",
+      "quantity": "1.5",
+      "units": "oz"
+      },
+      {
+      "name": "Benedictine",
+      "quantity": "0.25",
+      "units": "oz"
+      },
+      {
+      "name": "Triple sec",
+      "quantity": "0.25",
+      "units": "oz"
+      },
+      {
+      "name": "Cherry brandy liqueur or Maraschino liqueur",
+      "quantity": "0.25",
+      "units": "oz"
+      },
+      {
+      "name": "Grenadine",
+      "quantity": "0.25",
+      "units": "oz"
+      },
+      {
+      "name": "Lime juice",
+      "quantity": "0.25",
+      "units": "oz"
+      },
+      {
+      "name": "Pineapple juice",
+      "quantity": "1.5",
+      "units": "oz"
+      },
+      {
+      "name": "Angostura bitters",
+      "quantity": "1",
+      "units": "dash"
+      }
+    ],  
+    "steps": [
+      "Combine all ingredients and ice in a cocktail shaker and shake",
+      "Strain into a collins or hurricane glass over fresh ice",
+      "Garnish with a slice of orange and a maraschino cherry"
+    ],
+    "name": "Singapore Sling",
+    "imageAddress": "singapore-sling.jpg"
+  },
+  {
+    "ingredients": [
+      {
+      "name": "Cachaça",
+      "quantity": "2",
+      "units": "oz"
+      },
+      {
+      "name": "Sugar",
+      "quantity": "2",
+      "units": "tsp"
+      },
+      {
+      "name": "Lime",
+      "quantity": "1",
+      "units": ""
+      }
+    ],  
+    "steps": [
+      "Cut the lime into wedges",
+      "Muddle the lime wedges and sugar in a rocks glass",
+      "Fill the glass with ice, add the cachaça and stir",
+      "Garnish with a lime wheel"
+    ],
+    "name": "Caipirinha",
+    "imageAddress": "caipirinha.jpg"
+  },
+  {
+    "ingredients": [
+      {
+      "name": "Gin",
+      "quantity": "1.5",
+      "units": "oz"
+      },
+      {
+      "name": "Triple sec",
+      "quantity": "0.5",
+      "units": "oz"
+      },
+      {
+      "name": "Lemon juice",
+      "quantity": "0.75",
+      "units": ""
+      },
+      {
+      "name": "Orange marmalade",
+      "quantity": "1",
+      "units": "barspoon"
+      }
+    ],  
+    "steps": [
+      "Combine all ingredients and ice in a cocktail shaker and shake",
+      "Double strain into a martini or coupe glass",
+      "Garnish with a lemon wheel or small slice of toast on the rim"
+    ],
+    "name": "Breakfast Martini",
+    "imageAddress": "breakfast-martini.jpg"
+  },
+  {
+    "ingredients": [
+      {
+      "name": "Gin",
+      "quantity": "1.5",
+      "units": "oz"
+      },
+      {
+      "name": "Sweet vermouth",
+      "quantity": "1",
+      "units": "oz"
+      },
+      {
+      "name": "Maraschino liqueur",
+      "quantity": "0.25",
+      "units": ""
+      },
+      {
+      "name": "Angostura bitters",
+      "quantity": "2",
+      "units": "dashes"
+      }
+    ],  
+    "steps": [
+      "Combine all ingredients in a mixing glass with ice and stir",
+      "Strain into a coupe glass",
+      "Garnish with an orange twist"
+    ],
+    "name": "Martinez",
+    "imageAddress": "martinez.jpg"
+  },
+  {
+    "ingredients": [
+      {
+      "name": "Amaretto",
+      "quantity": "2",
+      "units": "oz"
+      },
+      {
+      "name": "Lemon juice",
+      "quantity": "1",
+      "units": "oz"
+      },
+      {
+      "name": "Egg white",
+      "quantity": "1",
+      "units": ""
+      }
+    ],  
+    "steps": [
+      "Combine all ingredients in a cocktail shaker and dry shake",
+      "Add ice to the shaker and shake again",
+      "Strain into a rocks glass over fresh ice",
+      "Garnish with a lemon twist or 3 drops of angostura bitters"
+    ],
+    "name": "Amaretto Sour",
+    "imageAddress": "amaretto-sour.jpg"
   }
 ]
