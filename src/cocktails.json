@@ -1301,5 +1301,196 @@
     ],
     "name": "Amaretto Sour",
     "imageAddress": "amaretto-sour.jpg"
+  },
+  {
+    "ingredients": [
+      {
+      "name": "Gin",
+      "quantity": "0.75",
+      "units": "oz"
+      },
+      {
+      "name": "Absinthe",
+      "quantity": "2",
+      "units": "dashes"
+      },
+      {
+      "name": "Lillet blanc",
+      "quantity": "0.75",
+      "units": "oz"
+      },
+      {
+      "name": "Triple sec",
+      "quantity": "0.75",
+      "units": "oz"
+      },
+      {
+      "name": "Lemon juice",
+      "quantity": "0.75",
+      "units": "oz"
+      }
+    ],  
+    "steps": [
+      "Rinse a martini or coupe glass with absinthe and discard the excess",
+      "Combine all the other ingredients in a cocktail shaker with ice and shake",
+      "Strain into a the glass"
+    ],
+    "name": "Corpse Reviver No.2",
+    "imageAddress": "corpse-reviver-no2.jpg"
+  },
+  {
+    "ingredients": [
+      {
+      "name": "Reposado tequila or Blanco tequila",
+      "quantity": "2",
+      "units": "oz"
+      },
+      {
+      "name": "Orange juice",
+      "quantity": "1",
+      "units": "oz"
+      },
+      {
+      "name": "Pink grapefruit juice",
+      "quantity": "0.5",
+      "units": "oz"
+      },
+      {
+      "name": "Lime juice",
+      "quantity": "0.5",
+      "units": "oz"
+      },
+      {
+      "name": "Salt",
+      "quantity": "2",
+      "units": "pinches"
+      },
+      {
+      "name": "Grapefruit soda",
+      "quantity": "2",
+      "units": "oz"
+      }
+    ],  
+    "steps": [
+      "Combine all ingredients in a collins glass or Cantaritos clay pot filled with ice and stir",
+      "Garnish with a lime wedge"
+    ],
+    "name": "Cantaritos",
+    "imageAddress": "cantaritos.jpg"
+  },
+  {
+    "ingredients": [
+      {
+      "name": "Gin",
+      "quantity": "2.5",
+      "units": "oz"
+      },
+      {
+      "name": "Dry vermouth",
+      "quantity": "0.5",
+      "units": "oz"
+      },
+      {
+      "name": "Orange bitters (optional)",
+      "quantity": "1",
+      "units": "dash"
+      }
+    ],  
+    "steps": [
+      "Combine all ingredients and ice in a mixing glass and stir",
+      "Strain into a martini glass",
+      "Garnish with a lemon twist"
+    ],
+    "name": "Dry Martini",
+    "imageAddress": "dry-martini.jpg"
+  },
+  {
+    "ingredients": [
+      {
+      "name": "Vodka",
+      "quantity": "2.5",
+      "units": "oz"
+      },
+      {
+      "name": "Dry vermouth",
+      "quantity": "0.5",
+      "units": "oz"
+      },
+      {
+      "name": "Orange bitters (optional)",
+      "quantity": "1",
+      "units": "dash"
+      }
+    ],  
+    "steps": [
+      "Combine all ingredients and ice in a mixing glass and stir",
+      "Strain into a martini glass",
+      "Garnish with a lemon twist"
+    ],
+    "name": "Vodka Martini",
+    "imageAddress": "vodka-martini.jpg"
+  },
+  {
+    "ingredients": [
+      {
+      "name": "Gin",
+      "quantity": "2.5",
+      "units": "oz"
+      },
+      {
+      "name": "Dry vermouth",
+      "quantity": "0.5",
+      "units": "oz"
+      },
+      {
+      "name": "Olive brine",
+      "quantity": "0.5",
+      "units": "oz"
+      }
+    ],  
+    "steps": [
+      "Combine all ingredients and ice in a mixing glass and stir",
+      "Strain into a martini glass",
+      "Garnish with a skewer of olives"
+    ],
+    "name": "Dirty Martini",
+    "imageAddress": "dirty-martini.jpg"
+  },
+  {
+    "ingredients": [
+      {
+      "name": "Reposado tequila",
+      "quantity": "2",
+      "units": "oz"
+      },
+      {
+      "name": "Lime juice",
+      "quantity": "1",
+      "units": "oz"
+      },
+      {
+      "name": "Agave syrup",
+      "quantity": "1",
+      "units": "oz"
+      },
+      {
+      "name": "Red Jalapeño",
+      "quantity": "1",
+      "units": "slice"
+      },
+      {
+      "name": "Coriander",
+      "quantity": "3",
+      "units": "sprigs"
+      }
+    ],  
+    "steps": [
+      "Muddle jalapeño and coriander in a cocktail shaker",
+      "Add all other ingredients and ice to the shaker and shake",
+      "Fine strain into a rocks glass over fresh ice",
+      "Garnish with a slice of Jalapeño"
+    ],
+    "name": "Picante de la Casa",
+    "imageAddress": "picante-de-la-casa.jpg"
   }
 ]
