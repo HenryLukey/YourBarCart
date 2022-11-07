@@ -3,7 +3,7 @@ import Cocktails from "../cocktails.json";
 import SearchBar from "./SearchBar";
 import CocktailPreview from "./CocktailPreview";
 
-const CocktailsPanel = ({ userIngredients }) => {
+const CocktailsPanel = ({ userIngredients, handleAdditionals }) => {
     // Make a useState to hold all the cocktails that can be made with the current ingredients
     const [possibleCocktails, setPossibleCocktails] = useState([]);
     // Make a useState to keep track of the search results from the Searchbar component
@@ -16,12 +16,21 @@ const CocktailsPanel = ({ userIngredients }) => {
     // Runs whenever the userIngredients state changes, checks what cocktails can be made with the given ingredients
     // then stores them in the possibleCocktails state
     useEffect(() => {
+
+        const missingIngredientsDict = {};
+
+        const handleSome = (element) => {
+            return userIngredients.includes(element) || element.includes("(optional)");
+        }
+
         const getPossibleCocktails = () => {
-
             const tempCocktailsArray = [];
-
+            
             Cocktails.forEach(cocktail => {
                 const tempIngredientArray = [];
+                const missingIngredients = [];
+                
+                let canBeMade = true;
                 
                 cocktail.ingredients.forEach(ingredient => {
                     // If the ingredient contains an "or" then split it to get the potential ingredients in an array
@@ -32,15 +41,51 @@ const CocktailsPanel = ({ userIngredients }) => {
                     } else {
                         tempIngredientArray.push([ingredient.name]);
                     }
-                    
                 });
 
                 // Check if the userIngredients array contains every ingredient in the current cocktail
-                if (tempIngredientArray.every(val => val.some(el => userIngredients.includes(el) || el.includes("(optional)")))) {
+                for (let i = 0; i < tempIngredientArray.length; i++) {
+                    const test = tempIngredientArray[i].some(handleSome);
+                    if (test === false) {
+                        canBeMade = false;
+                        missingIngredients.push(tempIngredientArray[i]);
+                    }
+                }
+
+                if (canBeMade) {
                     tempCocktailsArray.push(cocktail);
+                }
+
+                if (missingIngredients.length === 1) {
+                    missingIngredients[0].forEach(item => {
+                        if (item in missingIngredientsDict) {
+                            missingIngredientsDict[item].push(cocktail);
+                        } else {
+                            missingIngredientsDict[item] = [cocktail];
+                        }
+                    })
                 }
             });
             setPossibleCocktails(tempCocktailsArray);
+
+            const additionals = {
+                "ingredient" : "",
+                "possibleCocktails" : []
+            };
+
+            // Look through all the entries in the dictionary
+            for (var key in missingIngredientsDict) {
+                if (!missingIngredientsDict.hasOwnProperty(key)) {
+                    continue;
+                }
+                // If the current missing ingredient has more occurences than the current highest then replace the current highest
+                if (additionals.possibleCocktails.length < missingIngredientsDict[key].length) {
+                    additionals.ingredient = key;
+                    additionals.possibleCocktails = missingIngredientsDict[key];
+                }
+            }
+            // Pass the most commonly occuring missing ingredient to the home page, so it can be displayed on ingredients panel
+            handleAdditionals(additionals);
         }
         if (userIngredients !== false) {
             getPossibleCocktails();

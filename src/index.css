@@ -27,7 +27,7 @@
         @apply relative flex items-center h-10 w-10 justify-center
         m-2 p-1 bg-primary hover:bg-primaryVariant
         hover:rounded-xl transition-all duration-100 ease-linear
-        cursor-pointer border border-darkColour;
+        cursor-pointer;
     }
     .hover-rounded-xl {
         @apply hover:rounded-xl transition-all duration-200 ease-linear;

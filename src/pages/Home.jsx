@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { UserAuth } from "../context/AuthContext";
 import RecipesPanel from "../components/CocktailsPanel";
 import IngredientsPanel from "../components/IngredientsPanel";
+import CocktailsPanel from "../components/CocktailsPanel";
 
 const Home = () => {
     // Get the current user
@@ -17,6 +18,9 @@ const Home = () => {
     // Make a useState to store the docID of the userIngredients doc for the specific user
     const [docID, setDocID] = useState("");
 
+    // Track how many cocktails can be made with the addition of 1 extra ingredient, passed to ingredientsPanel component
+    const [additionals, setAdditionals] = useState();
+
     // Add an ingredient to the userIngredients state
     const addIngredient = (ingredient) => {
         setUserIngredients(oldArray => [...oldArray, ingredient]);
@@ -25,6 +29,10 @@ const Home = () => {
     // Remove an ingredient from the userIngredients state
     const removeIngredient = (ingredient) => {
         setUserIngredients(userIngredients.filter(item => item !== ingredient));
+    }
+
+    const handleAdditionals = (additionalObj) => {
+        setAdditionals(additionalObj);
     }
 
     // Called when the user changes, gets the ingredients the user has from the userIngredients
@@ -94,8 +102,8 @@ const Home = () => {
         <motion.div className="bg-lightColour" initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0, transition:{duration: 0.25}}}>
             {/* Div to contain the ingredients and cocktail recipes panels */}
             <div className="flex md:flex-row flex-col h-auto md:h-216">
-                <IngredientsPanel userIngredients={userIngredients} addIngredient={addIngredient} removeIngredient={removeIngredient}/>
-                <RecipesPanel userIngredients={userIngredients} />
+                <IngredientsPanel userIngredients={userIngredients} addIngredient={addIngredient} removeIngredient={removeIngredient} additionals={additionals}/>
+                <CocktailsPanel userIngredients={userIngredients} handleAdditionals={handleAdditionals} />
             </div>
         </motion.div>
     );

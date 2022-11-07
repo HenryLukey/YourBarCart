@@ -988,4 +988,9 @@ module.exports = {
     'disabled',
   ],
   plugins: [],
+  variants: {
+    extend: {
+      visibility: ["group-hover"],
+    },
+  },
 }

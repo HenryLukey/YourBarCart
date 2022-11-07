@@ -35,7 +35,7 @@ const SettingsButton = ({ icon }) => {
         // Create a div to contain both the button and it's dropdown
         <div className={"relative inline-block m-1"}>
             {/* When clicked call handleOpen */}
-            <div onClick={handleOpen} className="navbar-icon">
+            <div onClick={handleOpen} className="navbar-icon border border-darkColour">
                 <Cog className={`${open ? "rotate-60 transition-all duration-200 ease-linear" : "-rotate-60 transition-all duration-200 ease-linear"}`}/>
             </div>
             {/* If open is true then render the dropdown */}
