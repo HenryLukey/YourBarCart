@@ -27,8 +27,7 @@ const SettingsButton = ({ icon }) => {
             }
         } else {
             navigate("/signin");
-        }
-        
+        }   
     }
     
     return (
@@ -51,7 +50,7 @@ const SettingsButton = ({ icon }) => {
                         {/* <button>Dark mode</button> */}
                     {/* </li> */}
                 </ul>
-                // If it's not open then render nothing
+            // If it's not open then render nothing
             ) : null}
         </div>
     );

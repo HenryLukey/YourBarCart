@@ -47,10 +47,13 @@ const IngredientsPanel = ({ userIngredients, addIngredient, removeIngredient, ad
     
             const data = await getDocs(allIngredientsRef);
             data.docs.forEach(item => {
-                tempCategoriesArray.push(item.data());
+                let itemData = item.data();
+                // Sort the ingredients alphabetically
+                itemData.ingredients = itemData.ingredients.sort((a, b) => a.localeCompare(b))
+                tempCategoriesArray.push(itemData);
                 tempIngredientsArray = tempIngredientsArray.concat(item.data().ingredients);
             })
-            setAllIngredients(tempIngredientsArray);
+            setAllIngredients(tempIngredientsArray.sort((a, b) => a.localeCompare(b)));
             setIngredientsByCategory(tempCategoriesArray.sort(compareCategoryOrder))
         }
 
@@ -78,7 +81,7 @@ const IngredientsPanel = ({ userIngredients, addIngredient, removeIngredient, ad
                     {/* Div to hold the tooltip which says that cocktails can be made with an additional ingredient */}
                     <div className="group font-cormorant text-lg">
                         <Exclamation className={`navbar-icon mt-3 ${(additionals?.ingredient !== "" && additionals?.possibleCocktails?.length > 1) ? "" : "hidden"}`} />
-                        <div className="invisible group-hover:visible absolute hover-rounded-xl z-30 w-32 bg-lightColour border border-darkColour origin-top-right">If you bought some {additionals?.ingredient} you could make an additional {additionals?.possibleCocktails.length} cocktails</div>
+                        <div className="invisible group-hover:visible absolute hover-rounded-xl z-30 w-32 bg-lightColour border border-darkColour p-1 origin-top-right">If you bought some {additionals?.ingredient} you could make an additional {additionals?.possibleCocktails.length} cocktails</div>
                     </div>
                 </div>
                 

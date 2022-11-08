@@ -66,7 +66,7 @@ const CocktailsPanel = ({ userIngredients, handleAdditionals }) => {
                     })
                 }
             });
-            setPossibleCocktails(tempCocktailsArray);
+            setPossibleCocktails(tempCocktailsArray.sort((a, b) => a.name.localeCompare(b.name)));
 
             const additionals = {
                 "ingredient" : "",
