@@ -71,7 +71,7 @@ const CocktailPage = ({}) => {
                 {/* Div to have the image and ingredients / steps */}
                 <div className="flex flex-col lg:flex-row justify-center py-8">
                     {/* Image */}
-                    <img className="lg:w-160 w-full lg:m-4" src={url}/>
+                    <img className="lg:w-160 w-full lg:m-4 h-fit" src={url}/>
                     {/* Div containing ingredients and steps */}
                     <div className="lg:w-160 w-full lg:m-4">
                         {/* Ingredients section */}
