@@ -35,7 +35,7 @@ const CocktailPreview = ({ cocktail }) => {
             <h2 className="font-bold p-2 border-b border-darkColour text-left">{cocktail.name}</h2>
             {/* Cocktail image */}
             <div className="p-2">
-                <img src={url}/>
+                <img src={url} alt={cocktail.name}/>
             </div>
         </div>
     );
