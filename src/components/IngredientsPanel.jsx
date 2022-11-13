@@ -6,7 +6,7 @@ import SearchBar from "./SearchBar";
 import Toggle from "./Toggle";
 import Dropdown from "./CategoryDropdown";
 
-const IngredientsPanel = ({ userIngredients, addIngredient, removeIngredient, additionals }) => {
+const IngredientsPanel = ({ userIngredients, addIngredient, removeIngredient, additionals, heightStyleObj }) => {
 
     // Make a useState to keep track of the search results from the Searchbar component
     const [searchResults, setSearchResults] = useState([""]);
@@ -72,7 +72,7 @@ const IngredientsPanel = ({ userIngredients, addIngredient, removeIngredient, ad
 
     return (
         // Container div for the panel
-        <div className="overflow-y-scroll no-scrollbar border-b flex flex-col top-0 left-0 w-screen md:w-1/5 border-r border-l border-darkColour ">
+        <div className="overflow-y-scroll no-scrollbar border-b flex flex-col top-0 left-0 w-screen md:w-1/5 border-r border-l border-darkColour" style={heightStyleObj}>
             {/* Header element of the panel containing the title and search bar */}
             <header className="bg-primary text-darkColour px-2 pb-4 border-b border-darkColour">
                 <div className="flex flex-row justify-center">

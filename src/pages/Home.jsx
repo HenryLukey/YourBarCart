@@ -7,9 +7,14 @@ import RecipesPanel from "../components/CocktailsPanel";
 import IngredientsPanel from "../components/IngredientsPanel";
 import CocktailsPanel from "../components/CocktailsPanel";
 
-const Home = () => {
+const Home = ({ navHeight }) => {
     // Get the current user
     const {user} = UserAuth();
+
+    // Calculate the height of the viewport minus the height of the navbar and put this in an object to be used in css form
+    const heightStyle = {
+        height: `calc(100vh - ${navHeight+1}px)`,
+    };
 
     // Make a useState to keep track of the userIngredients false at first to prevent unnecessary
     // changes to Firestore or local storage
@@ -101,9 +106,9 @@ const Home = () => {
         // Must be wrapped in a motion div from framer motion so there can be transitions
         <motion.div className="bg-lightColour" initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0, transition:{duration: 0.25}}}>
             {/* Div to contain the ingredients and cocktail recipes panels */}
-            <div className="flex md:flex-row flex-col h-auto md:h-216">
-                <IngredientsPanel userIngredients={userIngredients} addIngredient={addIngredient} removeIngredient={removeIngredient} additionals={additionals}/>
-                <CocktailsPanel userIngredients={userIngredients} handleAdditionals={handleAdditionals} />
+            <div className="flex md:flex-row flex-col">
+                <IngredientsPanel heightStyleObj={heightStyle} userIngredients={userIngredients} addIngredient={addIngredient} removeIngredient={removeIngredient} additionals={additionals}/>
+                <CocktailsPanel heightStyleObj={heightStyle} userIngredients={userIngredients} handleAdditionals={handleAdditionals} />
             </div>
         </motion.div>
     );

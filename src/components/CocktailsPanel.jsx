@@ -3,7 +3,7 @@ import Cocktails from "../cocktails.json";
 import SearchBar from "./SearchBar";
 import CocktailPreview from "./CocktailPreview";
 
-const CocktailsPanel = ({ userIngredients, handleAdditionals }) => {
+const CocktailsPanel = ({ userIngredients, handleAdditionals, heightStyleObj }) => {
     // Make a useState to hold all the cocktails that can be made with the current ingredients
     const [possibleCocktails, setPossibleCocktails] = useState([]);
     // Make a useState to keep track of the search results from the Searchbar component
@@ -94,7 +94,7 @@ const CocktailsPanel = ({ userIngredients, handleAdditionals }) => {
 
     return (
         // Div for the entire panel
-        <div className="overflow-y-scroll no-scrollbar relative border-darkColour border-b top-0 right-0 w-screen md:w-4/5 flex flex-col">
+        <div className="overflow-y-scroll no-scrollbar relative border-darkColour border-b top-0 right-0 w-screen md:w-4/5 flex flex-col" style={heightStyleObj}>
             {/* Header section containing text and search bar */}
             <header className="bg-primary px-2 text-darkColour pb-4 border-b border-darkColour">
                 <h1 className="text-2xl font-black font-roboto py-4 text-left">Here's What You Can Make</h1>
