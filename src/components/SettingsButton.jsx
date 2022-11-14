@@ -1,18 +1,22 @@
-import { React, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { UserAuth } from "../context/AuthContext";
 import { ReactComponent as Cog } from "../icons/cog.svg";
 import { useNavigate } from "react-router-dom";
+import { ref } from "firebase/storage";
 
 const SettingsButton = ({ icon }) => {
     // Get access to the logOut function from UserAuth
     const {user, logOut} = UserAuth();
     // Make a useState to keep track of whether the dropdown is open
     const [open, setOpen] = useState(false);
+    // Use ref variable used to reference the settings button and dropdown
+    const settingsContainer = useRef(null);
 
     const navigate = useNavigate();
 
     // When toggled set open to be the opposite of what it currently is
     const handleOpen = () => {
+        console.log("CLICKED");
         setOpen(!open);
     };
 
@@ -29,10 +33,25 @@ const SettingsButton = ({ icon }) => {
             navigate("/signin");
         }   
     }
+
+    //Checks if the user clicked anywhere other than the settings button or its dropdown, and closes the dropdown if so
+    const closeOpenMenus = (e) => {
+        if (settingsContainer.current && open && !settingsContainer.current.contains(e.target)) {
+            setOpen(false);
+        }
+    }
+
+    // Add userEffect to add an event listener to close open menus when the user clicks
+    useEffect(() => {
+        document.addEventListener("mousedown", closeOpenMenus);
+        return () => {
+            document.removeEventListener("mousedown", closeOpenMenus);
+        }
+    },[closeOpenMenus]);
     
     return (
         // Create a div to contain both the button and it's dropdown
-        <div className={"relative inline-block m-1"}>
+        <div ref={settingsContainer} className={"relative inline-block m-1"}>
             {/* When clicked call handleOpen */}
             <div onClick={handleOpen} className="navbar-icon border border-darkColour">
                 <Cog className={`${open ? "rotate-60 transition-all duration-200 ease-linear" : "-rotate-60 transition-all duration-200 ease-linear"}`}/>

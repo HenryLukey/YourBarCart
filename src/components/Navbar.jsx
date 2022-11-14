@@ -13,9 +13,8 @@ const Navbar = ({ handleHeight }) => {
     }
 
     useEffect(() => {
-        console.log(navRef.current.clientHeight);
         handleHeight(navRef.current.clientHeight);
-    })
+    });
 
     return (
         // Div to contain all nav elements

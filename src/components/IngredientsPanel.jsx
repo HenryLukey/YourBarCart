@@ -57,6 +57,7 @@ const IngredientsPanel = ({ userIngredients, addIngredient, removeIngredient, ad
             setIngredientsByCategory(tempCategoriesArray.sort(compareCategoryOrder))
         }
 
+        // Compares the order of the categories from Firestore - this determines the order of the dropdown menus
         function compareCategoryOrder( a, b ) {
             if ( a.order < b.order ){
               return -1;
