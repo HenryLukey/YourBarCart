@@ -16,7 +16,6 @@ const SettingsButton = ({ icon }) => {
 
     // When toggled set open to be the opposite of what it currently is
     const handleOpen = () => {
-        console.log("CLICKED");
         setOpen(!open);
     };
 

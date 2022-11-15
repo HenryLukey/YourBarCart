@@ -36,6 +36,11 @@ const Home = ({ navHeight }) => {
         setUserIngredients(userIngredients.filter(item => item !== ingredient));
     }
 
+    // Set userIngredients state to an empty array
+    const removeAllIngredients = () => {
+        setUserIngredients([]);
+    }
+
     const handleAdditionals = (additionalObj) => {
         setAdditionals(additionalObj);
     }
@@ -107,7 +112,7 @@ const Home = ({ navHeight }) => {
         <motion.div className="bg-lightColour" initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0, transition:{duration: 0.25}}}>
             {/* Div to contain the ingredients and cocktail recipes panels */}
             <div className="flex md:flex-row flex-col">
-                <IngredientsPanel heightStyleObj={heightStyle} userIngredients={userIngredients} addIngredient={addIngredient} removeIngredient={removeIngredient} additionals={additionals}/>
+                <IngredientsPanel heightStyleObj={heightStyle} userIngredients={userIngredients} addIngredient={addIngredient} removeIngredient={removeIngredient} removeAllIngredients={removeAllIngredients} additionals={additionals}/>
                 <CocktailsPanel heightStyleObj={heightStyle} userIngredients={userIngredients} handleAdditionals={handleAdditionals} />
             </div>
         </motion.div>

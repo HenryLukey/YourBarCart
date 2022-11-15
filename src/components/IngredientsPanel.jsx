@@ -1,12 +1,13 @@
-import { React, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase-config";
 import { ReactComponent as Exclamation } from "../icons/exclamation.svg";
+import { ReactComponent as Ellipsis } from "../icons/ellipsis.svg";
 import SearchBar from "./SearchBar";
 import Toggle from "./Toggle";
 import Dropdown from "./CategoryDropdown";
 
-const IngredientsPanel = ({ userIngredients, addIngredient, removeIngredient, additionals, heightStyleObj }) => {
+const IngredientsPanel = ({ userIngredients, addIngredient, removeIngredient, removeAllIngredients, additionals, heightStyleObj }) => {
 
     // Make a useState to keep track of the search results from the Searchbar component
     const [searchResults, setSearchResults] = useState([""]);
@@ -14,10 +15,18 @@ const IngredientsPanel = ({ userIngredients, addIngredient, removeIngredient, ad
     const [ingredientsByCategory, setIngredientsByCategory] = useState([]);
     // Make a useState to hold all of the ingredients in a 1 dimensional array
     const [allIngredients, setAllIngredients] = useState([""]);
+    // Make a useState to track whether the options dropdown is open
+    const [optionsOpen, setOptionsOpen] = useState(false);
+    // Make a useRef to reference the panelOptions container component
+    const panelOptions = useRef(null);
 
     // Called by the Searchbar whenever the searchTerm or population changes
     const handleSearchResults = (results) => {
         setSearchResults(results);
+    }
+
+    const handleOpen = () => {
+        setOptionsOpen(!optionsOpen);
     }
 
     // Called whenever an ingredient is toggled
@@ -71,6 +80,20 @@ const IngredientsPanel = ({ userIngredients, addIngredient, removeIngredient, ad
         getAllIngredients();
     },[]);
 
+    const closeOpenMenus = (e) => {
+        if (panelOptions.current && optionsOpen && !panelOptions.current.contains(e.target)) {
+            setOptionsOpen(false);
+        }
+    }
+
+    // Add userEffect to add an event listener to close open menus when the user clicks
+    useEffect(() => {
+        document.addEventListener("mousedown", closeOpenMenus);
+        return () => {
+            document.removeEventListener("mousedown", closeOpenMenus);
+        }
+    },[closeOpenMenus]);
+
     return (
         // Container div for the panel
         <div className="overflow-y-scroll no-scrollbar border-b flex flex-col top-0 left-0 w-screen md:w-1/5 border-r border-l border-darkColour" style={heightStyleObj}>
@@ -83,6 +106,22 @@ const IngredientsPanel = ({ userIngredients, addIngredient, removeIngredient, ad
                     <div className="group font-cormorant text-lg">
                         <Exclamation className={`navbar-icon mt-3 ${(additionals?.ingredient !== "" && additionals?.possibleCocktails?.length > 1) ? "" : "hidden"}`} />
                         <div className="invisible group-hover:visible absolute hover-rounded-xl z-30 w-32 bg-lightColour border border-darkColour p-1 origin-top-right">If you bought some {additionals?.ingredient} you could make an additional {additionals?.possibleCocktails.length} cocktails</div>
+                    </div>
+                    {/* Create a div to contain both the options button and its dropdown */}
+                    <div ref={panelOptions} className={"relative inline-block mt-3"}>
+                        {/* When clicked call handleOpen */}
+                        <div onClick={handleOpen} className="navbar-icon">
+                            <Ellipsis />
+                        </div>
+                        {/* If open is true then render the dropdown */}
+                        {optionsOpen ? (
+                            // The dropdown is contained in an unordered list
+                            <ul className="absolute right-0 z-20 w-48 origin-top-right bg-lightColour border border-darkColour hover-rounded-xl text-darkColour text-xl font-cormorant">
+                                {/* Call handleSignOut if someone clicks the signout button */}
+                                <li onClick={removeAllIngredients} className="mx-2 my-3 border border-darkColour hover-rounded-lg select-none bg-primary hover:bg-primaryVariant">Remove all ingredients</li>
+                            </ul>
+                        // If it's not open then render nothing
+                        ) : null}
                     </div>
                 </div>
                 
