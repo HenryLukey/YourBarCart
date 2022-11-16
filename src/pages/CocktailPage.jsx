@@ -57,17 +57,17 @@ const CocktailPage = ({}) => {
 
     return (
         // The whole page is wrapped in a motion div from framer motion so there can be transitions between pages
-        <motion.div initial={{height: 0}} animate={{height: "100%"}} exit={{y: window.innerHeight, transition: {duration: 0.25}}}>
+        <motion.div className="dark:bg-darkModeMain dark:text-lightColour text-darkColour" initial={{height: 0}} animate={{height: "100%"}} exit={{y: window.innerHeight, transition: {duration: 0.25}}}>
             {/* Header to contain the name of the cocktail as well as a back button to navigate back to home page */}
             <header className="bg-testColour p-4 grid grid-cols-3 justify-center bg-primary border-b border-darkColour">
                 {/* Back button */}
                 <div onClick={returnToHome} className="w-10 h-10 mt-3 bg-primary hover:bg-primaryVariant p-2
-                    hover:rounded-xl transition-all duration-100 ease-linear cursor-pointer border border-darkColour"><BackArrow/>
+                    hover:rounded-xl transition-all duration-100 ease-linear cursor-pointer border border-darkColour"><BackArrow className="text-darkColour"/>
                 </div>
-                <h1 className="text-3xl font-black font-roboto py-4 text-darkColour">{cocktailObj.name}</h1>
+                <h1 className="text-3xl font-black font-roboto py-4">{cocktailObj.name}</h1>
             </header>
             {/* This is where details of the cocktail are shown */}
-            <div className="bg-lightColour">
+            <div className="bg-lightColour dark:bg-darkModeMain">
                 {/* Div to have the image and ingredients / steps */}
                 <div className="flex flex-col lg:flex-row justify-center py-8">
                     {/* Image */}
@@ -83,8 +83,8 @@ const CocktailPage = ({}) => {
                                 {/* Unit conversion buttons */}
                                 <div className="flex-1"></div>
                                 <div>
-                                    <button onClick={() => setUsingOz(true)} className={`text-darkColour text-xl font-cormorant border-t border-b border-l border-darkColour ml-2 my-2 py-2 px-4 ${usingOz ? "bg-primary hover:bg-primaryVariant" : "bg-lightColour hover:bg-lightVariant"}`}>oz</button>
-                                    <button onClick={() => setUsingOz(false)} className={`text-darkColour text-xl font-cormorant border border-darkColour mr-2 my-2 py-2 px-4 ${usingOz ? "bg-lightColour hover:bg-lightVariant" : "bg-primary hover:bg-primaryVariant"}`}>ml</button>
+                                    <button onClick={() => setUsingOz(true)} className={`text-xl font-cormorant border-t border-b border-l border-darkColour ml-2 my-2 py-2 px-4 ${usingOz ? "bg-primary hover:bg-primaryVariant" : "bg-lightColour hover:bg-lightVariant dark:bg-darkModeMain dark:hover:bg-darkModeVariant"}`}>oz</button>
+                                    <button onClick={() => setUsingOz(false)} className={`text-xl font-cormorant border border-darkColour mr-2 my-2 py-2 px-4 ${usingOz ? "bg-lightColour hover:bg-lightVariant dark:bg-darkModeMain dark:hover:bg-darkModeVariant" : "bg-primary hover:bg-primaryVariant"}`}>ml</button>
                                 </div> 
                             </div>
                             <ul>
@@ -92,7 +92,7 @@ const CocktailPage = ({}) => {
                                 {cocktailObj.ingredients.map((ingredient, index) => {
                                     return(
                                         // Use grid with 3 columns so there is consistent spacing
-                                        <li className="border-t flex-wrap font-cormorant text-xl p-2 px-8 border-gray-400 grid grid-cols-3" key={index}>
+                                        <li className="border-t flex-wrap font-cormorant text-xl p-2 px-8 border-gray-400 dark:border-gray-600 grid grid-cols-3" key={index}>
                                             <div className="">{handleQuantities(ingredient)}</div>
                                             <div className="">{handleUnits(ingredient.units)}</div>
                                             <div className="">{ingredient.name}</div>

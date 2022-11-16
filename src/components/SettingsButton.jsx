@@ -9,6 +9,8 @@ const SettingsButton = ({ icon }) => {
     const {user, logOut} = UserAuth();
     // Make a useState to keep track of whether the dropdown is open
     const [open, setOpen] = useState(false);
+    // Tracks whether the user is in darkmode or lightmode
+    const [isDark, setIsDark] = useState(false);
     // Use ref variable used to reference the settings button and dropdown
     const settingsContainer = useRef(null);
 
@@ -18,6 +20,20 @@ const SettingsButton = ({ icon }) => {
     const handleOpen = () => {
         setOpen(!open);
     };
+
+    // When toggled set isDark to be the opposite of what it currently is
+    const toggleDarkMode = () => {
+        setIsDark(!isDark);
+    };
+
+    useEffect(() => {
+        const bodyClass = window.document.body.classList;
+        if (isDark) {
+            bodyClass.add("dark");
+        } else {
+            bodyClass.remove("dark");
+        }
+    },[isDark])
 
     // Attempt to logout, if it fails then log the error
     const handleClick = async () => {
@@ -64,9 +80,9 @@ const SettingsButton = ({ icon }) => {
                         {user?.uid ? <div>Sign out</div> : <div>Sign in</div>}
                     </li>
                     {/* Dark mode toggle */}
-                    {/* <li className="mx-2 my-3 hover:rounded-lg border border-darkColour transition-all duration-200 ease-linear select-none bg-primary hover:bg-primaryVariant"> */}
-                        {/* <button>Dark mode</button> */}
-                    {/* </li> */}
+                    <li onClick={toggleDarkMode} className="mx-2 my-3 hover:rounded-lg border border-darkColour transition-all duration-200 ease-linear select-none bg-primary hover:bg-primaryVariant">
+                        <button>Dark mode</button>
+                    </li>
                 </ul>
             // If it's not open then render nothing
             ) : null}

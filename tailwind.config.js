@@ -4,7 +4,7 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   presets: [],
-  darkMode: 'media', // or 'class'
+  darkMode: 'class', // or 'class'
   theme: {
     screens: {
       sm: '640px',
@@ -49,6 +49,8 @@ module.exports = {
       darkColour: "#221E22",
       lightColour: "#FBFBFF",
       lightVariant: "#F4F4F8",
+      darkModeMain: "#4C434C",
+      darkModeVariant: "#453C45",
     }),
     columns: {
       auto: 'auto',

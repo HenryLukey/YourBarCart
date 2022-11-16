@@ -14,7 +14,7 @@ const CategoryDropdown = ({categoryObj, userIngredients, onToggleIngredient}) =>
 
     return(
         // Container div for whole dropdown
-        <div className="m-2 py-2 border border-darkColour hover:bg-lightVariant hover-rounded-xl">
+        <div className="m-2 py-2 border border-darkColour dark:bg-darkModeMain dark:hover:bg-darkModeVariant bg-lightColour hover:bg-lightVariant hover-rounded-xl">
             {/* Category button - used to open and close dropdown */}
             <div className="flex items-center justify-center" onClick={toggle}>
                 <div className="select-none mx-3 text-left">

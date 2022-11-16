@@ -94,17 +94,17 @@ const CocktailsPanel = ({ userIngredients, handleAdditionals, heightStyleObj }) 
 
     return (
         // Div for the entire panel
-        <div className="overflow-y-scroll no-scrollbar relative border-darkColour border-b top-0 right-0 w-screen md:w-4/5 flex flex-col" style={heightStyleObj}>
+        <div className="overflow-y-scroll no-scrollbar relative dark:bg-darkModeMain text-darkColour dark:text-lightColour border-darkColour border-b top-0 right-0 w-screen md:w-4/5 flex flex-col" style={heightStyleObj}>
             {/* Header section containing text and search bar */}
-            <header className="bg-primary px-2 text-darkColour pb-4 border-b border-darkColour">
+            <header className="bg-primary px-2 pb-4 border-b border-darkColour">
                 <h1 className="text-2xl font-black font-roboto py-4 text-left">Here's What You Can Make</h1>
                 <SearchBar searchPopulation={possibleCocktails} onSearch={handleSearchResults} showAllByDefault={true}/>
             </header>
-            {/* Where all the cocktail preview cards will be displayed */}
             <div className={`md:absolute md:inset-0 m-1 mt-2 flex justify-center items-center z-10 text-center font-cormorant text-lg ${possibleCocktails.length > 0 ? "hidden" : ""}`}>
                 <p>You can't make any cocktails with the current ingredients</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 pr-2 pb-2 bg-lightColour font-cormorant text-lg text-darkColour">
+            {/* Where all the cocktail preview cards will be displayed */}
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 pr-2 pb-2 dark:bg-darkModeMain bg-lightColour font-cormorant text-lg">
                 {/* Check through all the search results and for each one display a preview */}
                 {(searchResults[0] !== "") && searchResults.map((cocktail, index) => {
                     return (

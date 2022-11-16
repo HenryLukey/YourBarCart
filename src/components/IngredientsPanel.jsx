@@ -96,27 +96,27 @@ const IngredientsPanel = ({ userIngredients, addIngredient, removeIngredient, re
 
     return (
         // Container div for the panel
-        <div className="overflow-y-scroll no-scrollbar border-b flex flex-col top-0 left-0 w-screen md:w-1/5 border-r border-l border-darkColour" style={heightStyleObj}>
+        <div className="overflow-y-scroll no-scrollbar border-b flex flex-col top-0 left-0 w-screen md:w-1/5 border-r dark:bg-darkModeMain border-l border-darkColour text-darkColour dark:text-lightColour" style={heightStyleObj}>
             {/* Header element of the panel containing the title and search bar */}
-            <header className="bg-primary text-darkColour px-2 pb-4 border-b border-darkColour">
+            <header className="bg-primary px-2 pb-4 border-b border-darkColour">
                 <div className="flex flex-row justify-center">
                     <h1 className="text-2xl font-black font-roboto py-4 text-left">Ingredients</h1>
                     <div className="flex-1"/>
                     {/* Div to hold the tooltip which says that cocktails can be made with an additional ingredient */}
                     <div className="group font-cormorant text-lg">
-                        <Exclamation className={`navbar-icon mt-3 ${(additionals?.ingredient !== "" && additionals?.possibleCocktails?.length > 1) ? "" : "hidden"}`} />
-                        <div className="invisible group-hover:visible absolute hover-rounded-xl z-30 w-32 bg-lightColour border border-darkColour p-1 origin-top-right">If you bought some {additionals?.ingredient} you could make an additional {additionals?.possibleCocktails.length} cocktails</div>
+                        <Exclamation className={`navbar-icon mt-3 text-darkColour ${(additionals?.ingredient !== "" && additionals?.possibleCocktails?.length > 1) ? "" : "hidden"}`} />
+                        <div className="invisible group-hover:visible absolute hover-rounded-xl z-30 w-32 dark:bg-darkModeMain bg-lightColour border border-darkColour p-1 origin-top-right">If you bought some {additionals?.ingredient} you could make an additional {additionals?.possibleCocktails.length} cocktails</div>
                     </div>
                     {/* Create a div to contain both the options button and its dropdown */}
                     <div ref={panelOptions} className={"relative inline-block mt-3"}>
                         {/* When clicked call handleOpen */}
                         <div onClick={handleOpen} className="navbar-icon">
-                            <Ellipsis />
+                            <Ellipsis className="text-darkColour"/>
                         </div>
                         {/* If open is true then render the dropdown */}
                         {optionsOpen ? (
                             // The dropdown is contained in an unordered list
-                            <ul className="absolute right-0 z-20 w-48 origin-top-right bg-lightColour border border-darkColour hover-rounded-xl text-darkColour text-xl font-cormorant">
+                            <ul className="absolute right-0 z-20 w-48 origin-top-right dark:bg-darkModeMain bg-lightColour border border-darkColour hover-rounded-xl text-xl font-cormorant">
                                 {/* Call handleSignOut if someone clicks the signout button */}
                                 <li onClick={removeAllIngredients} className="mx-2 my-3 border border-darkColour hover-rounded-lg select-none bg-primary hover:bg-primaryVariant">Remove all ingredients</li>
                             </ul>
@@ -131,7 +131,7 @@ const IngredientsPanel = ({ userIngredients, addIngredient, removeIngredient, re
                 <SearchBar searchPopulation={allIngredients} onSearch={handleSearchResults} showAllByDefault={false}/>
             </header>
             {/* Div which will contain search results or category dropdowns */}
-            <div className="bg-lightColour text-darkColour font-cormorant text-lg font-bold md:px-0 px-8">
+            <div className="bg-lightColour dark:bg-darkModeMain font-cormorant text-lg font-bold md:px-0 px-8">
                 {/* If no search term has been given then display the category dropdowns */}
                 {(searchResults.length === 1 && searchResults[0] === "") && ingredientsByCategory.map((item, key) => {
                     return (
