@@ -29,9 +29,11 @@ const SettingsButton = ({ icon }) => {
     useEffect(() => {
         const bodyClass = window.document.body.classList;
         if (isDark) {
-            bodyClass.add("dark");
+            bodyClass.remove("bg-lightColour");
+            bodyClass.add("dark", "bg-darkModeMain");
         } else {
-            bodyClass.remove("dark");
+            bodyClass.remove("dark", "bg-darkModeMain");
+            bodyClass.add("bg-lightColour");
         }
     },[isDark])
 

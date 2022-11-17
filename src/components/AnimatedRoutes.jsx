@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { AuthContextProvider } from "../context/AuthContext";
 import { AnimatePresence } from "framer-motion";
@@ -18,6 +18,10 @@ const AnimatedRoutes = () => {
     const HandleNavHeight = (height) => {
         setNavHeight(height);
     }
+
+    useEffect(() => {
+        document.body.classList.add("min-h-screen");
+    },[]);
 
     return (
         // Must be wrapped in AuthContextProvider so some routes can be protected (redirect if not signed in)
