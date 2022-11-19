@@ -993,6 +993,9 @@ module.exports = {
   variants: {
     extend: {
       visibility: ["group-hover"],
+      transitionProperty: {
+        'height': 'height'
+      }
     },
   },
 }

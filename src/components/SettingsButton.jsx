@@ -70,13 +70,13 @@ const SettingsButton = ({ icon }) => {
         // Create a div to contain both the button and it's dropdown
         <div ref={settingsContainer} className={"relative inline-block m-1"}>
             {/* When clicked call handleOpen */}
-            <div onClick={handleOpen} className="navbar-icon border border-darkColour">
+            <div onClick={handleOpen} className=" m-1 navbar-icon border border-darkColour">
                 <Cog className={`${open ? "rotate-60 transition-all duration-200 ease-linear" : "-rotate-60 transition-all duration-200 ease-linear"}`}/>
             </div>
             {/* If open is true then render the dropdown */}
             {open ? (
                 // The dropdown is contained in an unordered list
-                <ul className="absolute right-0 z-30 w-48 origin-top-right bg-lightColour dark:bg-darkModeMain border border-darkColour hover-rounded-xl text-darkColour text-xl font-cormorant mt-2">
+                <ul className="ease-in-out absolute right-0 z-30 w-48 origin-top-right bg-lightColour dark:bg-darkModeMain border border-darkColour hover-rounded-xl text-darkColour text-xl font-cormorant mt-2">
                     {/* Call handleSignOut if someone clicks the signout button */}
                     <li onClick={handleClick} className="mx-2 my-3 border border-darkColour hover-rounded-lg select-none bg-primary hover:bg-primaryVariant">
                         {user?.uid ? <div>Sign out</div> : <div>Sign in</div>}
