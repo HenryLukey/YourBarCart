@@ -23,6 +23,7 @@ const SettingsButton = ({ icon }) => {
 
     // When toggled set isDark to be the opposite of what it currently is
     const toggleDarkMode = () => {
+        localStorage.setItem("dark-mode", JSON.stringify(!isDark))
         setIsDark(!isDark);
     };
 
@@ -36,6 +37,22 @@ const SettingsButton = ({ icon }) => {
             bodyClass.add("bg-lightColour");
         }
     },[isDark])
+
+    useEffect(() => {
+        if (localStorage.getItem("dark-mode") !== null) {
+            console.log("SOMETHING IN STORAGE");
+            if (localStorage.getItem("dark-mode") === "true") {
+                console.log("SETTING TRUE");
+                setIsDark(true);
+            } else if (localStorage.getItem("dark-mode") === "false") {
+                console.log("SETTING FALSE");
+                setIsDark(false);
+            }
+            console.log("here it is:", localStorage.getItem("dark-mode"))
+        } else {
+            localStorage.setItem("dark-mode", JSON.stringify(false))
+        }
+    },[]);
 
     // Attempt to logout, if it fails then log the error
     const handleClick = async () => {
@@ -76,7 +93,7 @@ const SettingsButton = ({ icon }) => {
             {/* If open is true then render the dropdown */}
             {open ? (
                 // The dropdown is contained in an unordered list
-                <ul className="ease-in-out absolute right-0 z-30 w-48 origin-top-right bg-lightColour dark:bg-darkModeMain border border-darkColour hover-rounded-xl text-darkColour text-xl font-cormorant mt-2">
+                <ul className="absolute right-0 z-30 w-48 origin-top-right bg-lightColour dark:bg-darkModeMain border border-darkColour hover-rounded-xl text-darkColour text-xl font-cormorant mt-2">
                     {/* Call handleSignOut if someone clicks the signout button */}
                     <li onClick={handleClick} className="mx-2 my-3 border border-darkColour hover-rounded-lg select-none bg-primary hover:bg-primaryVariant">
                         {user?.uid ? <div>Sign out</div> : <div>Sign in</div>}

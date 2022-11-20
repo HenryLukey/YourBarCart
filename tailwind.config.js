@@ -6,6 +6,11 @@ module.exports = {
   presets: [],
   darkMode: 'class', // or 'class'
   theme: {
+    extend: {
+      transitionProperty: {
+        'height': 'height'
+      },
+    },
     screens: {
       sm: '640px',
       md: '768px',
@@ -993,9 +998,6 @@ module.exports = {
   variants: {
     extend: {
       visibility: ["group-hover"],
-      transitionProperty: {
-        'height': 'height'
-      }
     },
   },
 }
