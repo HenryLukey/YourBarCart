@@ -1,17 +1,18 @@
-import { React, useState, useEffect } from "react";
+import React, { useState, useEffect, useMediaQuery } from "react";
 import { db } from "../firebase-config";
 import { collection, doc, addDoc, getDocs, limit, query, where, updateDoc } from "firebase/firestore";
 import { motion } from "framer-motion";
 import { UserAuth } from "../context/AuthContext";
 import IngredientsPanel from "../components/IngredientsPanel";
 import CocktailsPanel from "../components/CocktailsPanel";
+import useWindowDimensions from "../hooks/useWindowDimensions";
 
 const Home = ({ navHeight }) => {
     // Get the current user
     const {user} = UserAuth();
 
     // Calculate the height of the viewport minus the height of the navbar and put this in an object to be used in css form
-    const heightStyle = {
+    let heightStyle = {
         height: `calc(100vh - ${navHeight+1}px)`,
     };
 
@@ -24,6 +25,9 @@ const Home = ({ navHeight }) => {
 
     // Track how many cocktails can be made with the addition of 1 extra ingredient, passed to ingredientsPanel component
     const [additionals, setAdditionals] = useState();
+
+    // Keep track of whether user is on a mobile device - used for changing scrolling behaviour
+    const { height:windowHeight, width:windowWidth} = useWindowDimensions()
 
     // Add an ingredient to the userIngredients state
     const addIngredient = (ingredient) => {
@@ -105,6 +109,17 @@ const Home = ({ navHeight }) => {
         }
         
     },[userIngredients, docID]);
+
+    // If the user is on mobile or a mobile sized screen then adjust the heightStyle to be used by panels accordingly
+    useEffect(() => {
+        // If on mobile the height should be auto so the panels expand with more results
+        if (windowWidth < 768) {
+            heightStyle = {height: "auto",}
+        // If not on mobile the height should be the screen - the height of navbar so there is scrolling within the panel
+        } else {
+            heightStyle = {height: `calc(100vh - ${navHeight+1}px)`,}
+        }
+    },[windowWidth])
 
     return (
         // Must be wrapped in a motion div from framer motion so there can be transitions

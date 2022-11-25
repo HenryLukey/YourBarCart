@@ -40,15 +40,11 @@ const SettingsButton = ({ icon }) => {
 
     useEffect(() => {
         if (localStorage.getItem("dark-mode") !== null) {
-            console.log("SOMETHING IN STORAGE");
             if (localStorage.getItem("dark-mode") === "true") {
-                console.log("SETTING TRUE");
                 setIsDark(true);
             } else if (localStorage.getItem("dark-mode") === "false") {
-                console.log("SETTING FALSE");
                 setIsDark(false);
             }
-            console.log("here it is:", localStorage.getItem("dark-mode"))
         } else {
             localStorage.setItem("dark-mode", JSON.stringify(false))
         }
@@ -87,7 +83,7 @@ const SettingsButton = ({ icon }) => {
         // Create a div to contain both the button and it's dropdown
         <div ref={settingsContainer} className={"relative inline-block m-1"}>
             {/* When clicked call handleOpen */}
-            <div onClick={handleOpen} className=" m-1 navbar-icon border border-darkColour">
+            <div onClick={handleOpen} className="m-1 navbar-icon border border-darkColour">
                 <Cog className={`${open ? "rotate-60 transition-all duration-200 ease-linear" : "-rotate-60 transition-all duration-200 ease-linear"}`}/>
             </div>
             {/* If open is true then render the dropdown */}

@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useMediaQuery } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase-config";
 import { ReactComponent as Exclamation } from "../icons/exclamation.svg";
@@ -96,7 +96,7 @@ const IngredientsPanel = ({ userIngredients, addIngredient, removeIngredient, re
 
     return (
         // Container div for the panel
-        <div className="overflow-y-scroll overscroll no-scrollbar border-b flex flex-col top-0 left-0 w-screen md:w-1/5 border-r dark:bg-darkModeMain border-l border-darkColour text-darkColour dark:text-lightColour" style={heightStyleObj}>
+        <div className="overflow-y-scroll no-scrollbar border-b flex flex-col top-0 left-0 w-screen md:w-1/5 border-r dark:bg-darkModeMain border-l border-darkColour text-darkColour dark:text-lightColour" style={heightStyleObj}>
             {/* Header element of the panel containing the title and search bar */}
             <header className="bg-primary px-2 pb-4 border-b border-darkColour">
                 <div className="flex flex-row justify-center">
