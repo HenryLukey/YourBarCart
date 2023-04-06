@@ -48,6 +48,9 @@ const Home = ({ navHeight }) => {
         setAdditionals(additionalObj);
     }
 
+    console.log("THE USER IS: ");
+    console.log(user);
+
     // Called when the user changes, gets the ingredients the user has from the userIngredients
     // collection in Firestore
     useEffect(() => {
