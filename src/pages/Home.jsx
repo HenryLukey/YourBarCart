@@ -48,70 +48,32 @@ const Home = ({ navHeight }) => {
         setAdditionals(additionalObj);
     }
 
-    console.log("THE USER IS: ");
-    console.log(user);
-
     // Called when the user changes, gets the ingredients the user has from the userIngredients
     // collection in Firestore
     useEffect(() => {
         // Get a reference to the collection
         const userIngredientsRef = collection(db, "userIngredients");
         const getUserIngredients = async () => {
-            if (user?.uid) {
-                // Get the document for the current user
-                const q = query(userIngredientsRef, where("userID", "==", user.uid), limit(1));
-                const data = await getDocs(q);
-                // If a userIngredients doc already exists for this user set userIngredients state to be equal
-                // to the data from the ingredients field
-                if (data.docs.length > 0)
-                {
-                    setDocID(data.docs[0].id);
-                    setUserIngredients(data.docs[0].data().ingredients);
-                // If no documents are found then create a document for current user uid using userIngredients state array
-                } else {
-                    createUserIngredients();
-                    setUserIngredients([]);
-                }
-            // If there's no logged in user then local storage should be used instead of Firestore
+            // Set userIngredients to be equal to whatever's in local storage
+            if (localStorage.getItem("userIngredients") !== null) {
+                setUserIngredients(JSON.parse(localStorage.getItem("userIngredients")));
+            // Otherwise userIngredients should be an empty array
             } else {
-                // Set userIngredients to be equal to whatever's in local storage
-                if (localStorage.getItem("userIngredients") !== null) {
-                    setUserIngredients(JSON.parse(localStorage.getItem("userIngredients")));
-                // Otherwise userIngredients should be an empty array
-                } else {
-                    setUserIngredients([]);
-                }
-            }  
-        };
-
-        // Create a userIngredients doc for the current user. Will only ever be called once per user
-        const createUserIngredients = async () => {
-            await addDoc(userIngredientsRef, {userID: user.uid, ingredients: []});
+                setUserIngredients([]);
+            }
         };
 
         getUserIngredients(); 
-    },[user]);
+    },[]);
 
-    // Called whenever userIngredients or docID state changes, used to update the userIngredients doc in Firestore
+    // Called whenever userIngredients changes
     useEffect(() => {
-        // Update the users ingredients doc
-        const updateUserIngredients = async () => {
-            const docRef = doc(db, "userIngredients", docID);
-            const newFields = {ingredients: userIngredients};
-            await updateDoc(docRef, newFields);
-        }
-
         // If the userIngredients state is false then there's no need to update the database or local storage
         if (userIngredients !== false) {
-            // Only call this if there is an existing docID and logged in user
-            if (docID && user) {
-                updateUserIngredients();
-            } else {
-                localStorage.setItem("userIngredients", JSON.stringify(userIngredients));
-            }
+            localStorage.setItem("userIngredients", JSON.stringify(userIngredients));
         }
         
-    },[userIngredients, docID]);
+    },[userIngredients]);
 
     // If the user is on mobile or a mobile sized screen then adjust the heightStyle to be used by panels accordingly
     useEffect(() => {
