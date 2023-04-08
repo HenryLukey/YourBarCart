@@ -1,21 +1,24 @@
 import { React, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { getDownloadURL, ref } from "firebase/storage";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { storage } from "../firebase-config";
 import { ReactComponent as BackArrow } from "../icons/arrow-left.svg";
+import Cocktails from "../cocktails.json";
 
 const CocktailPage = ({}) => {
     // Get the state from the current location from react router dom
     const {state} = useLocation();
     // Get access to react router dom's useNavigate
     const navigate = useNavigate();
-    // Get the cocktail object from the state
-    const {cocktailObj} = state;
+
+    const [cocktailObj, setCocktailObj] = useState(null);
     // Make a useState to handle the URL of the cocktails image
     const [url, setUrl] = useState();
     // Tracks the units the user wants to see the ingredients in
     const [usingOz, setUsingOz] = useState(true);
+
+    const {name} = useParams();
 
     // Navigate to home screen
     const returnToHome = () => {
@@ -52,8 +55,37 @@ const CocktailPage = ({}) => {
             })
         }
         
-        getImageUrl();
+        if (cocktailObj) {
+            getImageUrl();
+        }
     },[cocktailObj]);
+
+    useEffect(() => {
+        const cleanName = (name) => {
+            // Replace all dashes with spaces
+            const lowerName = name.toLowerCase();
+            const cleanName = lowerName.replace(/-/g, " ");
+            return cleanName;
+        }
+
+        const getCocktail = () => {
+            const cocktail = Cocktails.find((cocktail) => cocktail.name.toLowerCase() === cleanName(name));
+            if (cocktail) {
+                setCocktailObj(cocktail);
+            }
+        }
+
+        getCocktail();
+        console.log("COCKTAIL OBJ: " + cocktailObj);
+    }, []);
+
+    if (!cocktailObj) {
+        return (
+            <div className="dark:bg-darkModeMain dark:text-lightColour text-darkColour">
+                <div>Oops... couldn't find that cocktail!</div>
+            </div>
+        )
+    }
 
     return (
         // The whole page is wrapped in a motion div from framer motion so there can be transitions between pages

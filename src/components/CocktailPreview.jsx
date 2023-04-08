@@ -11,7 +11,12 @@ const CocktailPreview = ({ cocktail }) => {
 
     // Redirect to the CocktailPage, passing the cocktailObject used to populate it
     const navigateToCocktail = () => {
-        navigate("/CocktailPage", { state: { cocktailObj: cocktail } });
+        //navigate("/CocktailPage", { state: { cocktailObj: cocktail } });
+        navigate(`/cocktails/${urlFriendlyName(cocktail.name)}`);
+    }
+
+    const urlFriendlyName = (name) => {
+        return name.toLowerCase().replace(/ /g, "-");
     }
 
     // Runs when the cocktail prop changes, and gets the URL of the cocktails image.

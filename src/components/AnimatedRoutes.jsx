@@ -6,9 +6,12 @@ import { UserAuth } from "../context/AuthContext";
 import CocktailPage from '../pages/CocktailPage';
 import Home from "../pages/Home"
 import Signin from "../pages/Signin";
+import Articles from "../pages/Articles";
+import Article from "../pages/Article";
 import Navbar from "./Navbar";
 import Protected from "./Protected";
 import CreateArticle from "../pages/CreateArticle";
+import TestComponent from "./TestComponent";
 
 const AnimatedRoutes = () => {
 
@@ -40,10 +43,13 @@ const AnimatedRoutes = () => {
                 {/* All routes except signin are protected */}
                 <Route path="/signin" element={<Signin />} />
                 <Route path="/" element={<Home navHeight={navHeight} />} />
-                <Route path="/cocktailPage" element={<CocktailPage />} />
+                <Route path="/cocktails/:name" element={<CocktailPage />} />
                 {user && user?.email === "yourbarcartonline@gmail.com" && user?.uid === "dezOaxrrmadL7DP0H8GqHeNkrYA3" && (
                     <Route path="/createArticle" element={<CreateArticle />} />
                 )}
+                <Route path="/articles" element={<Articles />} />
+                <Route path="/articles/:id" element ={<Article />} />
+                <Route path="/testing" element={<TestComponent />} />
             </Routes>
         </AnimatePresence>
     );
