@@ -8,9 +8,6 @@ import CocktailsPanel from "../components/CocktailsPanel";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 
 const Home = ({ navHeight }) => {
-    // Get the current user
-    const {user} = UserAuth();
-
     // Calculate the height of the viewport minus the height of the navbar and put this in an object to be used in css form
     let heightStyle = {
         height: `calc(100vh - ${navHeight+1}px)`,
@@ -19,9 +16,6 @@ const Home = ({ navHeight }) => {
     // Make a useState to keep track of the userIngredients false at first to prevent unnecessary
     // changes to Firestore or local storage
     const [userIngredients, setUserIngredients] = useState(false);
-
-    // Make a useState to store the docID of the userIngredients doc for the specific user
-    const [docID, setDocID] = useState("");
 
     // Track how many cocktails can be made with the addition of 1 extra ingredient, passed to ingredientsPanel component
     const [additionals, setAdditionals] = useState();
@@ -48,8 +42,7 @@ const Home = ({ navHeight }) => {
         setAdditionals(additionalObj);
     }
 
-    // Called when the user changes, gets the ingredients the user has from the userIngredients
-    // collection in Firestore
+    // Called when the user changes, gets the ingredients the user has
     useEffect(() => {
         // Get a reference to the collection
         const userIngredientsRef = collection(db, "userIngredients");

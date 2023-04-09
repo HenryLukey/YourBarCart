@@ -31,8 +31,6 @@ const AnimatedRoutes = () => {
         document.body.classList.add("min-h-screen");
     },[]);
 
-    console.log("USER: " + user);
-
     return (
         // AnimatePresence wrapper so there can be transitions when navigating
         <AnimatePresence>

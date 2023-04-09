@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { createEditor } from 'slate'
+import { createEditor, Node } from 'slate'
 import { Slate, Editable, withReact } from 'slate-react'
 import { motion } from "framer-motion";
 import { getDownloadURL, ref } from "firebase/storage";
@@ -10,6 +10,7 @@ import { collection, getDocs, query, where, limit, doc, getDoc } from "firebase/
 import { db } from "../firebase-config";
 import RichTextEditor from "../components/RichTextEditor";
 import ArticleReader from "../components/ArticleReader";
+import { Helmet } from "react-helmet-async";
 
 const Article = () => {
     // Get the state from the current location from react router dom
@@ -23,13 +24,17 @@ const Article = () => {
     // Get access to react router dom's useNavigate
     const navigate = useNavigate();
     
-
     // Create a Slate editor object that won't change across renders.
     const [editor] = useState(() => withReact(createEditor()));
 
     // Navigate to home screen
     const returnToArticles = () => {
         navigate("/articles");
+    }
+
+    const slateToPlainText = (richText) => {
+        const asString = richText.map(n => Node.string(n)).join(" ");
+        return asString;
     }
 
     useEffect(() => {
@@ -46,13 +51,10 @@ const Article = () => {
 
     useEffect(() => {
         const getMainImageUrl = async () => {
-            console.log("WE CALLED");
             if (!articleObj || !articleObj.mainImage) {
                 return;
             }
             const reference = ref(storage, `${articleObj.mainImage}`);
-            console.log("REFERENCE: " + reference);
-            console.log(reference);
             await getDownloadURL(reference).then((val) => {
                 setMainImageUrl(val);
             })
@@ -72,14 +74,28 @@ const Article = () => {
     return (
         // The whole page is wrapped in a motion div from framer motion so there can be transitions between pages
         <motion.div className="dark:bg-darkModeMain dark:text-lightColour text-darkColour" initial={{height: 0}} animate={{height: "100%"}} exit={{y: window.innerHeight, transition: {duration: 0.25}}}>
-            
+            <Helmet>
+                <title>{articleObj.title}</title>
+                <script type="application/ld+json">
+                {`
+                    {
+                        "@context": "https://schema.org",
+                        "@type": "Article",
+                        "headline": "${articleObj.title}",
+                        "datePublished": "${articleObj.date}",
+                        "articleBody": "${slateToPlainText(articleObj.content)}",
+                        "alternativeHeadline": "${articleObj.deck}"
+                    }
+                `}
+                </script>
+            </Helmet>
             {/* Article title + back button*/}
             <header className="bg-testColour p-4 grid grid-cols-3 justify-center bg-primary border-b border-darkColour">
                 {/* Back button */}
                 <div onClick={returnToArticles} className="w-10 h-10 mt-3 bg-primary hover:bg-primaryVariant p-2
                     hover:rounded-xl transition-all duration-100 ease-linear cursor-pointer border border-darkColour"><BackArrow className="text-darkColour"/>
                 </div>
-                <h1 className="text-3xl font-black font-roboto py-4">{articleObj.title}</h1>
+                <h1 itemProp="" className="text-3xl font-black font-roboto py-4">{articleObj.title}</h1>
             </header>
 
 

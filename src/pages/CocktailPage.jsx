@@ -5,6 +5,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { storage } from "../firebase-config";
 import { ReactComponent as BackArrow } from "../icons/arrow-left.svg";
 import Cocktails from "../cocktails.json";
+import { Helmet } from "react-helmet-async";
 
 const CocktailPage = ({}) => {
     // Get the state from the current location from react router dom
@@ -76,7 +77,6 @@ const CocktailPage = ({}) => {
         }
 
         getCocktail();
-        console.log("COCKTAIL OBJ: " + cocktailObj);
     }, []);
 
     if (!cocktailObj) {
@@ -90,6 +90,18 @@ const CocktailPage = ({}) => {
     return (
         // The whole page is wrapped in a motion div from framer motion so there can be transitions between pages
         <motion.div className="dark:bg-darkModeMain dark:text-lightColour text-darkColour" initial={{height: 0}} animate={{height: "100%"}} exit={{y: window.innerHeight, transition: {duration: 0.25}}}>
+            <Helmet>
+                <title>{cocktailObj.title}</title>
+                <script type="application/ld+json">
+                {`
+                    {
+                        "@context": "https://schema.org",
+                        "@type": "Recipe",
+                        "headline": "${cocktailObj.name}"
+                    }
+                `}
+                </script>
+            </Helmet>
             {/* Header to contain the name of the cocktail as well as a back button to navigate back to home page */}
             <header className="bg-testColour p-4 grid grid-cols-3 justify-center bg-primary border-b border-darkColour">
                 {/* Back button */}
