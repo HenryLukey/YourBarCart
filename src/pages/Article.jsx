@@ -16,7 +16,7 @@ const Article = () => {
     // Get the state from the current location from react router dom
     const {state} = useLocation();
 
-    const { id } = useParams();
+    const { slug } = useParams();
 
     const [articleObj, setArticleObj] = useState(null);
     const [mainImageUrl, setMainImageUrl] = useState("");
@@ -37,31 +37,18 @@ const Article = () => {
         return asString;
     }
 
+    // Get the article from the database
     useEffect(() => {
         const getArticle = async () => {
-            const articleRef = doc(db, "articles", id);
-            const articleData = await getDoc(articleRef);
-            if (articleData.exists()) {
-                setArticleObj(articleData.data());
-            }
+            const articlesRef = collection(db, "articles");
+            const q = query(articlesRef, where("slug", "==", slug), limit(1));
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+                setArticleObj(doc.data());
+            });
         }
-
         getArticle();
     }, []);
-
-    useEffect(() => {
-        const getMainImageUrl = async () => {
-            if (!articleObj || !articleObj.mainImage) {
-                return;
-            }
-            const reference = ref(storage, `${articleObj.mainImage}`);
-            await getDownloadURL(reference).then((val) => {
-                setMainImageUrl(val);
-            })
-        }
-        
-        getMainImageUrl();
-    },[articleObj]);
 
     if (!articleObj) {
         return (
@@ -69,8 +56,7 @@ const Article = () => {
                 <div>Oops... couldn't find that article!</div>
             </div>
         )
-    }
-
+    } else {
     return (
         // The whole page is wrapped in a motion div from framer motion so there can be transitions between pages
         <motion.div className="dark:bg-darkModeMain dark:text-lightColour text-darkColour" initial={{height: 0}} animate={{height: "100%"}} exit={{y: window.innerHeight, transition: {duration: 0.25}}}>
@@ -125,6 +111,7 @@ const Article = () => {
             </div>
         </motion.div>
     );
+    }
 }
 
 export default Article;

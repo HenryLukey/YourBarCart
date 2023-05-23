@@ -22,6 +22,7 @@ const Navbar = ({ handleHeight }) => {
             <h1 className="text-darkColour dark:text-lightColour text-3xl font-black font-roboto px-4 select-none hover:cursor-pointer" onClick={returnToHome}>YourBarCart</h1>
             <div className="flex-1"></div>
             <div className="flex-1"></div>
+            <button className="text-darkColour dark:text-lightColour font-roboto font-bold text-xl px-4 select-none hover:cursor-pointer m-1 relative flex items-center h-10 justify-center p-1 bg-primary hover:bg-primaryVariant hover:rounded-xl transition-all duration-100 ease-linear cursor-pointer border border-darkColour" onClick={() => navigate("/articles")}>Articles</button>
             {/* Settings button, this is a dropdown of options */}
             <SettingsButton />
         </div>

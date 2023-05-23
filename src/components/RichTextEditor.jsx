@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from 'react';
+import React, { useMemo, useCallback, useEffect } from 'react';
 import imageExtensions from 'image-extensions';
 import isUrl from 'is-url';
 import isHotkey from 'is-hotkey';
@@ -28,10 +28,16 @@ const LIST_TYPES = ['numbered-list', 'bulleted-list'];
 
 const TEXT_ALIGN_TYPES = ['left', 'center', 'right', 'justify'];
 
-const RichTextEditor = ({setContent}) => {
+const RichTextEditor = ({setContent, reset}) => {
     const renderElement = useCallback(props => <Element {...props} />, []);
     const renderLeaf = useCallback(props => <Leaf {...props} />, []);
     const editor = useMemo(() => withImages(withHistory(withReact(createEditor()))), []);
+
+    useEffect(() => {
+      Transforms.deselect(editor);
+      Transforms.delete(editor, { at: Editor.range(editor, []) });
+      //Transforms.insertNodes(editor, reset, { at: Editor.range(editor, []) });
+    }, [reset]);
 
     return (
     <Slate editor={editor} value={initialValue} onChange={value => {
@@ -363,6 +369,7 @@ const isImageUrl = url => {
 const initialValue = [
   {
     type: 'paragraph',
+    align: 'left',
     children: [
       {
         text:

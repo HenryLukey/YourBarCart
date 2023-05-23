@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { createEditor } from 'slate'
+import React, { useEffect, useState, useRef } from "react";
+import { createEditor, Text, Editor } from 'slate'
 import { Slate, Editable, withReact } from 'slate-react'
-import { motion } from "framer-motion";
+import { m, motion } from "framer-motion";
 import { db } from "../firebase-config";
 import { collection, doc, addDoc, getDocs, limit, query, where, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref } from "firebase/storage";
@@ -14,9 +14,26 @@ const CreateArticle = ({}) => {
     // Get the state from the current location from react router dom
     const {state} = useLocation();
 
-    const [content, setContent] = useState([]);
+    const initialValue = [
+        {
+          type: 'paragraph',
+          align: 'left',
+          children: [
+            {
+              text:
+                '',
+            },
+          ],
+        },
+    ];
 
-    const initialValue = [];
+    const [content, setContent] = useState(initialValue);
+    const [reset, setReset] = useState(initialValue);
+
+    const titleRef = useRef(null);
+    const deckRef = useRef(null);
+    const tagsRef = useRef(null);
+    const mainImageRef = useRef(null);
 
     // Get access to react router dom's useNavigate
     const navigate = useNavigate();
@@ -33,11 +50,32 @@ const CreateArticle = ({}) => {
         console.log(content);
     }
 
-    const estimateReadTime = () => {
-        const asString = content.map(n => Node.string(n)).join(" ");
-        const words = asString.split(" ").length;
+    const estimateReadTime = () => {     
+        const textContents = [];
+        const queue = [];
+        content.forEach((node) => {
+            queue.push(node);
+        });
+
+        while (queue.length > 0) {
+            const node = queue.shift(); // Dequeue a node.
+
+            // If the node is a Text node, add its text content to textContents.
+            if (Text.isText(node)) {
+                textContents.push(node.text);
+            }
+
+            // If the node has children, add them to the queue.
+            if (node.children) {
+                queue.push(...node.children);
+            }
+        }
+        const words = textContents.join(" ").split(" ").length;
         const averageReadSpeed = 240;
-        const minutes = Math.round(words / averageReadSpeed);
+        let minutes = Math.round(words / averageReadSpeed);
+        if (minutes === 0) {
+            minutes = 1;
+        }
         return minutes;
     }
 
@@ -61,8 +99,7 @@ const CreateArticle = ({}) => {
         });
 
         // Get the main image of the article
-        const mainImage = "article-images/"+document.getElementsByName("mainImage")[0].files[0].name;
-        console.log(mainImage);
+        const mainImage = document.getElementsByName("mainImage")[0].value;
 
         // Get today's date
         const today = new Date();
@@ -72,7 +109,7 @@ const CreateArticle = ({}) => {
         const date = `${year}-${month}-${day}`;
 
         // Calculate the estimated read time of the article
-        const estimatedReadTime = Math.round(value.length / 200);
+        const estimatedReadTime = estimateReadTime();
 
         // Get a reference to the articles collection
         const articlesRef = collection(db, "articles");
@@ -96,31 +133,38 @@ const CreateArticle = ({}) => {
         .catch(error => {
         console.error('Error adding article: ', error);
         });
+        
+        // Clear all the input elements
+        setReset(initialValue);
+        titleRef.current.value = "";
+        deckRef.current.value = "";
+        tagsRef.current.value = "";
+        mainImageRef.current.value = "";
     }
 
     return (
-        <div>
+        <div className="bg-gray-500">
             <h1 className="text-3xl font-black font-roboto py-4">Create an article</h1>
             <div className="flex flex-col justify-center py-8 space-y-4 pl-32">
                 <div className="flex flex-col">
                     <label className="text-left mb-2">Title</label>
-                    <input type="text" name="title" className="max-w-md" />
+                    <input ref={titleRef} type="text" name="title" className="max-w-md" />
                 </div>
                 <div className="flex flex-col">
                     <label className="text-left mb-2">Deck</label>
-                    <input type="text" name="deck" className="max-w-md" />
+                    <input ref={deckRef} type="text" name="deck" className="max-w-md" />
                 </div>
                 <div className="flex flex-col">
                     <label className="text-left mb-2">Tags</label>
-                    <input type="text" name="tags" className="max-w-md" />
+                    <input ref={tagsRef} type="text" name="tags" className="max-w-md" />
                 </div>
                 <div className="flex flex-col">
                     <label className="text-left mb-2">Main Image</label>
-                    <input name="mainImage" type="file" className="max-w-md" />
+                    <input ref={mainImageRef} name="mainImage" type="text" className="max-w-md" />
                 </div>
                 <br />
                 <div className="bg-white">
-                    <RichTextEditor setContent={setContent}/>
+                    <RichTextEditor setContent={setContent} reset={reset}/>
                 </div>
                 <div className="flex flex-col max-w-md">
                     <button onClick={() => submitArticle()} className="bg-blue-500">Submit!</button>

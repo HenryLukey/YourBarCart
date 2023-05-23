@@ -46,7 +46,7 @@ const AnimatedRoutes = () => {
                     <Route path="/createArticle" element={<CreateArticle />} />
                 )}
                 <Route path="/articles" element={<Articles />} />
-                <Route path="/articles/:id" element ={<Article />} />
+                <Route path="/articles/:slug" element ={<Article />} />
                 <Route path="/testing" element={<TestComponent />} />
             </Routes>
         </AnimatePresence>
