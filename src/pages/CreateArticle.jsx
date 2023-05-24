@@ -31,6 +31,7 @@ const CreateArticle = ({}) => {
     const [reset, setReset] = useState(initialValue);
 
     const titleRef = useRef(null);
+    const slugRef = useRef(null);
     const deckRef = useRef(null);
     const tagsRef = useRef(null);
     const mainImageRef = useRef(null);
@@ -79,6 +80,24 @@ const CreateArticle = ({}) => {
         return minutes;
     }
 
+    const slugify = (text) => {
+        return text
+            .toString()
+            .toLowerCase()
+            .replace(/\s+/g, "-") // Replace spaces with hyphens
+            .replace(/[^\w\d-]+/g, "") // Remove all non-word non-num non-hyphen chars
+            .replace(/--+/g, "-") // Replace multiple hyphens with single hyphen
+            .replace(/^-+/, "") // Trim hyphens from start of text
+            .replace(/-+$/, ""); // Trim hyphens from end of text
+    }
+
+    const checkDuplicateSlug = async (slug) => {
+        const articlesRef = collection(db, "articles");
+        const q = query(articlesRef, where("slug", "==", slug));
+        const querySnapshot = await getDocs(q);
+        return !querySnapshot.empty;
+    }
+
     const submitArticle = () => {
         // Get the value of the editor
         const value = editor.children;
@@ -88,6 +107,16 @@ const CreateArticle = ({}) => {
 
         // Get the deck of the article
         const deck = document.getElementsByName("deck")[0].value;
+
+        const slugRaw = document.getElementsByName("slug")[0].value;
+        // Slugify the slug
+        const slug = slugify(slugRaw);
+
+        const splitSlug = slug.split("-");
+        if (splitSlug.length > 6) {
+            alert("Slug is over 6 words, this should probably be shortened.");
+            return;
+        }
 
         // Get the tags of the article
         const tagsString = document.getElementsByName("tags")[0].value;
@@ -114,32 +143,47 @@ const CreateArticle = ({}) => {
         // Get a reference to the articles collection
         const articlesRef = collection(db, "articles");
 
-        // Create a new article object
-        const newArticle = {
-            title: title,
-            deck: deck,
-            tags: tags,
-            date: date,
-            readTime: estimatedReadTime,
-            mainImage: mainImage,
-            content: content,
-        };
+        // Check for duplicate slug
+        checkDuplicateSlug(slug)
+            .then((isDupe) => {
+                if (isDupe) {
+                    alert("Duplicate slug detected. Please change the slug.");
+                } else {
+                    // Create a new article object
+                    const newArticle = {
+                        title: title,
+                        slug: slug,
+                        deck: deck,
+                        tags: tags,
+                        date: date,
+                        readTime: estimatedReadTime,
+                        mainImage: mainImage,
+                        content: content,
+                    };
 
-        // Add the new article to the "articles" collection
-        addDoc(articlesRef, newArticle)
-        .then(docRef => {
-        console.log('Article added with ID: ', docRef.id);
-        })
-        .catch(error => {
-        console.error('Error adding article: ', error);
-        });
-        
-        // Clear all the input elements
-        setReset(initialValue);
-        titleRef.current.value = "";
-        deckRef.current.value = "";
-        tagsRef.current.value = "";
-        mainImageRef.current.value = "";
+                    // Add the new article to the "articles" collection
+                    addDoc(articlesRef, newArticle)
+                    .then(docRef => {
+                    console.log('Article added with ID: ', docRef.id);
+                    })
+                    .catch(error => {
+                    console.error('Error adding article: ', error);
+                    });
+                    
+                    // Clear all the input elements
+                    setReset(initialValue);
+                    titleRef.current.value = "";
+                    slugRef.current.value = "";
+                    deckRef.current.value = "";
+                    tagsRef.current.value = "";
+                    mainImageRef.current.value = "";
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+                alert("Error checking for duplicate slug. Please try again.");
+            }
+        );
     }
 
     return (
@@ -149,6 +193,10 @@ const CreateArticle = ({}) => {
                 <div className="flex flex-col">
                     <label className="text-left mb-2">Title</label>
                     <input ref={titleRef} type="text" name="title" className="max-w-md" />
+                </div>
+                <div className="flex flex-col">
+                    <label className="text-left mb-2">Slug</label>
+                    <input ref={slugRef} type="text" name="slug" className="max-w-md" />
                 </div>
                 <div className="flex flex-col">
                     <label className="text-left mb-2">Deck</label>

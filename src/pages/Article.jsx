@@ -99,7 +99,7 @@ const Article = () => {
                     {/* Tags */}
                     {/* <h3 className="">{articleObj.tags}</h3> */}
                     {/* Main Image */}
-                    <img className="h-128 w-full object-cover" alt={articleObj.mainImage} src={mainImageUrl}/>
+                    <img className="h-128 w-full object-cover" alt={articleObj.mainImage} src={articleObj.mainImage}/>
                 </div>
                 {/* Div to contain the article*/}
                 <div className="flex flex-col pb-4 w-1/3 mx-auto font-cormorant text-lg">
